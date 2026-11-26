@@ -1,0 +1,12 @@
+demo_library/
+  01_文献/英文_SCI1区/2021_Wang_起爆机制__Crossref_J_公开_1区.pdf
+  01_文献/英文_SCI1区/2023_Raman_旋转爆轰非理想性__OpenAlex_J_公开_1区.pdf
+  01_文献/英文_SCI1区/2025_Liu_数据驱动优化__arXiv_P_公开_非SCI.pdf
+  02_开放资料/网页存档/2024_实验室_年度进展网页__Web_W_公开_NA.html
+  00_索引/library.db
+  00_索引/索引表.csv
+  00_索引/索引表.xlsx
+  05_报告/report_config.json
+  05_报告/未获取资料清单.md
+  05_报告/研究现状_旋转爆轰数值模拟.docx
+  05_报告/研究现状_旋转爆轰数值模拟.md

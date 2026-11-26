@@ -1,0 +1,6 @@
+﻿ID,标题,中文题名,第一作者,年份,期刊/来源,类型,语言,获取状态,影响因子,分区,分区来源,被引,DOI,链接,本地文件,解析全文,笔记,相关度,标签,一句话说明,核心结论,状态,入库时间
+P001,Nonidealities in rotating detonation engines,,Author1,2023,Annual Review of Fluid Mechanics,J,英文,公开,,1区,,0,10.1000/demo.1,,01_文献/英文_SCI1区/2023_Raman_旋转爆轰非理想性__OpenAlex_J_公开_1区.pdf,,,5,,,,已入库,2026-11-25 12:00:00
+P002,Initiation mechanisms in RDE,,Author2,2021,Combustion and Flame,J,英文,公开,,1区,,0,10.1000/demo.2,,01_文献/英文_SCI1区/2021_Wang_起爆机制__Crossref_J_公开_1区.pdf,,,5,,,,已入库,2026-11-25 12:00:00
+P003,Data-driven optimization of RDE,,Author3,2025,arXiv,P,英文,公开,,非SCI,,0,10.1000/demo.3,,01_文献/英文_SCI1区/2025_Liu_数据驱动优化__arXiv_P_公开_非SCI.pdf,,,5,,,,已入库,2026-11-25 12:00:00
+O001,RDE Annual Progress,,,2024,Web,W,英文,公开,,NA,,0,,,02_开放资料/网页存档/2024_实验室_年度进展网页__Web_W_公开_NA.html,,,4,,,,已入库,2026-11-25 12:00:00
+P004,Impacts of Injection Scheme and Grid Resolution in Two-Phase RDE,,Zhang,2024,AIAA SciTech Forum,C,英文,闭源,,非SCI,,0,10.2514/6.2024-2431,,,,,5,,,,待手动获取,2026-11-25 12:00:00

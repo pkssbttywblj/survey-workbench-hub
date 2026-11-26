@@ -1,0 +1,16 @@
+name: validate-repo
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check README mirror, links and scripts
+        run: python scripts/validate_repo.py
