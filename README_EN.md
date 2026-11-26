@@ -2,76 +2,55 @@
 
 [中文说明](README.md)
 
-Turn a keyword into a searchable literature library plus a grant-style research-status report. It covers search, public downloads, normalized archiving, PDF parsing, Excel/SQLite indexing, iterative querying, time-ordered report drafting, and a condensed scientific PPT generated from the report.
+An Agent Skill repository for end-to-end literature surveys. Give it a research topic and specific questions, and it handles multi-source search, public full-text downloads, structured archiving, PDF parsing, Excel/SQLite indexing, research-status drafting, and academic presentation generation.
 
-Search spans 10 open sources (including China-direct PLOS and DataCite) plus one-click entry points to 28 Chinese and institutional databases. Asking about institutional access is optional; a "no" goes straight to document delivery.
+Search aggregates 10 open sources (including China-direct PLOS and DataCite) alongside one-click search entries for 28 Chinese and institutional databases. Closed-access papers are never scraped behind paywalls—each entry keeps its DOI and access routes. Institutional access is optional; without it, the workflow routes directly to document delivery.
 
-> **Our lab's programming site**: <https://zerocode.xin/login>
+> **Programming & AI Coding Site**: <https://zerocode.xin/login>
 >
-> **Community group**: 1061940027 (QQ)
+> **Community Group**: 1061940027 (QQ)
 >
-> Join the group or the site to learn programming and AI coding for free and get free resources. Strong contributors may later work with our team on real engineering tasks.
+> Both share free programming and AI coding tutorials and resources. Strong contributors may also join our team on practical engineering projects.
 
-## 1. Founder and Operations
+## 1. About
 
-### 1.1 Founder
+Maintained by our research group to turn the repetitive literature work before a thesis proposal or grant application—searching, downloading, renaming, indexing, drafting research status, and making group-meeting slides—into a reusable workflow. See Git history for contributors, or reach us in the QQ group for questions and collaboration.
 
-Maintained by our research group, focused on turning repetitive research chores into reusable workflows. See Git history for individual contributors.
+A few ground rules behind how this skill is built:
 
-### 1.2 Free Learning Resources
+- **Leave unknown metadata blank**: Missing impact factors, quartiles, or paper numbers stay marked for verification; closed papers keep their DOI, failure reason, and retrieval route instead of faking downloads.
+- **Keep logic in one place**: Archiving, deduplication, and index updates share the same underlying rules so files and spreadsheets never drift out of sync.
+- **Deliver directly usable files**: Every stage leaves concrete folders, spreadsheets, reports, or editable slides rather than generic suggestions.
 
-- Programming site: <https://zerocode.xin/login>
-- Programming / AI coding group: 1061940027 (QQ)
+## 2. Quick Start
 
-Both provide free tutorials and resources, and welcome people who want to join real engineering work.
-
-### 1.3 Business Cooperation
-
-No fixed channel yet; reach the maintainers through the community group.
-
-## 2. Main Developers
-
-| Role | Scope |
-|---|---|
-| Research group | Rule design, workflow, grant-writing spec, validation |
-| Community contributors | Data sources, OCR backends, PPT style adaptation |
-
-## 3. Philosophy and Community
-
-- **Find the cause before changing code.** Each judgment is implemented once, so parsing and cleanup cannot disagree.
-- **Leave it blank if you cannot find it.** Missing impact factors, quartiles, or numbers stay blank; closed papers get a DOI and access routes, not a fake download.
-- **Return something usable.** Every step leaves an index table, a report, or a deck instead of a suggestion.
-- **Turn repetition into a workflow.** Searching, sorting files and drafting reports are packaged as a skill you can reuse.
-
-## 4. Quick Start
-
-Trigger it with `/survey-workbench`, or just ask an agent with the skill installed:
+Once installed, trigger the skill with `/survey-workbench` or describe your topic and questions directly:
 
 ```text
-Survey the research status of rotating detonation engine simulation by stage. Build a searchable library first, then give me the report and a presentation.
+Survey the research status of UAV aerodynamic shape optimization by stage. Build a searchable library first, then generate the report and presentation slides.
 ```
 
-The skill creates `survey_<topic>/` in the current directory:
+The skill creates `survey_<topic>/` in the current working directory:
 
-| Output | Location |
+| Output | Path |
 |---|---|
-| Normalized library | `01_文献/`, `02_开放资料/` |
-| Searchable text | `03_解析全文/md/`, `txt/`, `tables/` |
-| Index | `00_索引/索引表.xlsx` (7 sheets) + `library.db` |
-| Manual-download list | `05_报告/未获取资料清单.md` (DOI + clickable links) |
-| Report | `05_报告/研究现状_<topic>.md` / `.docx` |
-| Presentation | `05_报告/研究现状_<topic>.pptx` |
+| Archived papers & materials | `01_文献/`, `02_开放资料/` |
+| Parsed full text & tables | `03_解析全文/md/`, `txt/`, `tables/` |
+| Searchable index | `00_索引/索引表.xlsx` (7 sheets) + `library.db` |
+| Pending manual downloads | `05_报告/未获取资料清单.md` (DOI + clickable links) |
+| Survey report | `05_报告/研究现状_<topic>.md` / `.docx` |
+| Presentation deck | `05_报告/<topic>_汇报.pptx` |
 
-## 5. Installation
+## 3. Installation & Dependencies
 
-### 5.1 `npx skills` (recommended)
+### 3.1 Install via `npx skills` (Recommended)
 
 ```bash
 npx skills add pkssbttywblj/survey-workbench-hub --list
 npx skills add pkssbttywblj/survey-workbench-hub --agent codex --skill survey-workbench --yes --copy
 ```
 
-### 5.2 Claude Code
+### 3.2 Claude Code
 
 ```bash
 git clone https://github.com/pkssbttywblj/survey-workbench-hub.git ~/ai-skills/survey-workbench-hub
@@ -79,76 +58,68 @@ mkdir -p ~/.claude/skills
 ln -s ~/ai-skills/survey-workbench-hub/skills/survey-workbench ~/.claude/skills/survey-workbench
 ```
 
-### 5.3 WorkBuddy / Codex
+### 3.3 WorkBuddy / Codex
 
-Copy the whole `skills/survey-workbench` directory into the matching skills folder. On Windows, a directory junction avoids duplicates:
+Copy the entire `skills/survey-workbench` folder into the target agent's skills directory. On Windows, a directory junction avoids keeping duplicate copies:
 
 ```cmd
 mklink /J "%USERPROFILE%\.workbuddy\skills\survey-workbench" "C:\ai-skills\survey-workbench-hub\skills\survey-workbench"
 ```
 
-### 5.4 Other Agents
+### 3.4 Other Agents & Python Dependencies
 
-Keep the complete directory structure (scripts, `references/`, `ppt_skill/`); do not copy only `SKILL.md`.
+Keep the full folder structure intact (`scripts/`, `references/`, and `ppt_skill/` are all required); do not copy only `SKILL.md`.
 
-Python dependencies:
+Python packages:
 
 ```bash
-pip install openpyxl pymupdf pdfplumber python-docx beautifulsoup4
-# optional: curl_cffi improves downloads from publisher sites
+pip install openpyxl pymupdf pdfplumber python-docx beautifulsoup4 python-pptx
+# Optional: curl_cffi improves download success on some publisher sites
 ```
 
-## 6. Skill Index
+## 4. Skill Index
 
 | Skill | Status | Purpose | Triggers | Details |
 |---|---|---|---|---|
-| `survey-workbench` | Beta | keyword → library → report → presentation | literature survey, build a literature library, research status, download papers and public materials | [README](skills/survey-workbench/README.md) |
+| `survey-workbench` | Beta | Keyword → library → survey report → presentation | literature survey, build a literature library, research status, download papers and public materials | [Details](skills/survey-workbench/README_EN.md) |
 
-## 7. Contribution and Development
-
-### 7.1 Shared Design Principles
-
-1. Rely on original sources and say why a rule exists, not just what it says.
-2. Keep the evidence visible so a judgment can be traced back to its place in the report.
-3. Implement each judgment in one place, so different scripts cannot drift apart.
-4. Ship outputs that are ready to use, with dependencies included and room to extend.
-
-### 7.2 Repository Layout
+## 5. Repository Layout & Contributing
 
 ```text
 skills/survey-workbench/
-├── SKILL.md            # main entry
-├── scripts/            # 15 workflow scripts (incl. PPT handoff builder)
-├── references/         # writing spec, naming, sources, OCR
-├── ppt_skill/          # bundled CN Academic Spark engine (MIT; templates/icons/route library)
+├── SKILL.md            # main workflow entry
+├── scripts/            # 15 workflow scripts (search, parse, index, report check, PPT handoff)
+├── references/         # writing spec, naming rules, sources, OCR, and portability guides
+├── ppt_skill/          # bundled CN Academic Spark PPT engine (MIT)
 ├── templates/          # reading-note card template
 └── evals/              # evaluation prompts
 examples/demo_library/  # real run output
-assets/                 # screenshots
+assets/                 # showcase screenshots & presentation files
 ```
 
-### 7.3 Adding a Skill
+To add data sources, OCR backends, PPT styles, or new skills:
 
-1. Create a directory under `skills/`;
-2. Write `SKILL.md` and mirrored Chinese/English READMEs;
-3. Put rules in `references/`, scripts in `scripts/`;
-4. Add a row to the skill index above;
-5. Run `python scripts/validate_repo.py` for consistency checks.
+1. Create a skill folder under `skills/` with `SKILL.md` and mirrored Chinese/English READMEs;
+2. Place specs in `references/` and executable scripts in `scripts/`;
+3. Add an entry to the Skill Index table above;
+4. Run `python scripts/validate_repo.py` before committing to verify README parity, asset links, and Python syntax.
 
-## 8. Star History
+## 6. Real-Run Showcase
 
-The project is new; stars and feedback are welcome.
+The showcase outputs below (literature library, Excel index, Word survey report, pending-download list, and multimodal page input) were generated directly using **WorkBuddy + DeepSeek V4.1 Flash** with `survey-workbench` and the following prompt:
 
-## Example Preview
+```text
+survey-workbench
+,请你使用此skill在当前目录下对“无人机气动外形优化”进行调研，调研问题为：（1）找到给出详细几何参数的无人机模型；（2）调研出无人机气动外形优化所用的优化算法；（3）调研出无人机气动外形优化的难点和挑战，请执行
+```
+
+The **presentation deck** was regenerated from the same survey report and library using **Gemini 4 Neon** following this skill's Route D literature-review spec (18 fully editable native vector slides embedding source paper figures; files included in `assets/`: [Download PPTX](assets/无人机气动外形优化_汇报.pptx) | [View PDF](assets/无人机气动外形优化_汇报.pdf)).
 
 | Output | Preview |
 |---|---|
 | Excel index | ![index](assets/索引表.png) |
-| Word report | ![report](assets/研究现状_无人机气动外形优化.png) |
+| Word survey report | ![report](assets/研究现状_无人机气动外形优化.png) |
 | Manual-download list | ![list](assets/pending-list.png) |
-| Directory tree | ![tree](assets/directory-tree.png) |
-| PPT overview (generated by the bundled engine on the UAV topic) | ![ppt](assets/ppt-overview.png) |
-| Page image for multimodal reading | ![page](assets/page-for-multimodal.png) |
-
-> Screenshots come from a real UAV aerodynamic-shape-optimization survey: report body and references,
-> the literature index, a source-paper figure (multimodal input), and a 19-slide deck produced by the bundled engine.
+| Normalized directory tree | ![tree](assets/directory-tree.png) |
+| Presentation deck overview (regenerated with Gemini 4 Neon per skill spec) | ![ppt](assets/ppt-overview.png) |
+| Multimodal page reading input | ![page](assets/page-for-multimodal.png) |
